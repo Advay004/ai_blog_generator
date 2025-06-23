@@ -1,0 +1,85 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+ENV/
+*.egg-info/
+
+# Django stuff
+*.sqlite3
+db.sqlite3
+*.log
+
+# Media and static files
+/static/
+media/
+
+# Local settings
+/local_settings.py
+
+# Migrations
+*/migrations/__pycache__/
+*/migrations/*.py
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Python cache
+*.pyo
+*.pyd
+*.whl
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Coverage and testing
+htmlcov/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+*.cover
+
+# Build files
+*.o
+*.so
+*.exe
+*.dll
+*.obj
+*.lib
+
+# pipenv
+Pipfile
+Pipfile.lock
+
+# Logs
+*.log
+*.out
+
+# Temporary files
+*.tmp
+*.temp
+*.~tmp
+
+# Node.js (if applicable)
+node_modules/
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+
+# Local development tools
+.env
+.env.*.local
