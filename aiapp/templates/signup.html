@@ -3,185 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Sign Up - AI Blog Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Navigation -->
     <nav class="bg-gray-600 p-7 flex justify-between">
         <div>
             <h1 class="font-extrabold text-white">AI Blog Generator</h1>
         </div>
         <div>
-            <h2 class="text-white hover:underline"><a href="#">Login</a></h2>
+            <h2 class="text-white hover:underline"><a href="{% url 'login' %}">Login</a></h2>
         </div>
     </nav>
-    <div>
-        
-        <h1 class="font-extrabold text-gray-600 text-center m<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - AI Blog Generator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center py-8">
-    <div class="max-w-md w-full mx-4">
-        <!-- Logo and Header -->
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
-                <i class="fas fa-robot text-white text-2xl"></i>
+
+    <!-- Main Content -->
+    <div class="flex items-center justify-center py-8">
+        <div class="max-w-md w-full mx-4">
+            <!-- Logo and Header -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
+                    <i class="fas fa-robot text-white text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">AI Blog Generator</h1>
+                <p class="text-gray-600 mt-2">Create your account</p>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800">AI Blog Generator</h1>
-            <p class="text-gray-600 mt-2">Create your account</p>
-        </div>
 
-        <!-- Signup Form -->
-        <div class="bg-white rounded-xl shadow-lg p-8">
-            <!-- Django Messages -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 border border-red-200 text-red-700{% else %}bg-green-50 border border-green-200 text-green-700{% endif %}">
-                        <div class="flex items-center">
-                            <i class="{% if message.tags == 'error' %}fas fa-exclamation-triangle{% else %}fas fa-check-circle{% endif %} mr-2"></i>
-                            {{ message }}
+            <!-- Signup Form -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <!-- Django Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 border border-red-200 text-red-700{% elif message.tags == 'success' %}bg-green-50 border border-green-200 text-green-700{% else %}bg-blue-50 border border-blue-200 text-blue-700{% endif %}">
+                            <div class="flex items-center">
+                                <i class="{% if message.tags == 'error' %}fas fa-exclamation-triangle{% elif message.tags == 'success' %}fas fa-check-circle{% else %}fas fa-info-circle{% endif %} mr-2"></i>
+                                <span>{{ message }}</span>
+                            </div>
                         </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Client-side Messages Placeholder -->
+                <div id="messageContainer" class="hidden mb-4 p-4 rounded-lg">
+                    <div class="flex items-center">
+                        <i class="mr-2"></i>
+                        <span id="messageText"></span>
                     </div>
-                {% endfor %}
-            {% endif %}
-
-            <form method="post" class="space-y-6" id="signupForm">
-                {% csrf_token %}
-                
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-user text-gray-400 mr-2"></i>Username
-                    </label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        required
-                        minlength="3"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
-                        placeholder="Choose a username (min 3 characters)"
-                    >
-                    <p class="text-xs text-gray-500 mt-1">Username must be at least 3 characters long</p>
                 </div>
 
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-envelope text-gray-400 mr-2"></i>Email Address
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
-                        placeholder="Enter your email address"
-                    >
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-lock text-gray-400 mr-2"></i>Password
-                    </label>
-                    <div class="relative">
+                <form method="post" class="space-y-6" id="signupForm">
+                    {% csrf_token %}
+                    
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-user text-gray-400 mr-2"></i>Username
+                        </label>
                         <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
+                            type="text" 
+                            id="username" 
+                            name="username" 
                             required
-                            minlength="6"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 pr-12"
-                            placeholder="Create a password (min 6 characters)"
+                            minlength="3"
+                            value="{{ request.POST.username|default:'' }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                            placeholder="Choose a username (min 3 characters)"
                         >
-                        <button 
-                            type="button" 
-                            id="togglePassword"
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                        >
-                            <i class="fas fa-eye" id="eyeIcon"></i>
-                        </button>
+                        <p class="text-xs text-gray-500 mt-1">Username must be at least 3 characters long</p>
                     </div>
-                    <div class="mt-2">
-                        <div class="flex items-center space-x-2 text-xs">
-                            <div id="lengthCheck" class="flex items-center text-gray-400">
-                                <i class="fas fa-circle mr-1"></i>
-                                <span>At least 6 characters</span>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>Email Address
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required
+                            value="{{ request.POST.email|default:'' }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                            placeholder="Enter your email address"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock text-gray-400 mr-2"></i>Password
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required
+                                minlength="6"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 pr-12"
+                                placeholder="Create a password (min 6 characters)"
+                            >
+                            <button 
+                                type="button" 
+                                id="togglePassword"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <div class="flex items-center space-x-2 text-xs">
+                                <div id="lengthCheck" class="flex items-center text-gray-400">
+                                    <i class="fas fa-circle mr-1"></i>
+                                    <span>At least 6 characters</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <label for="repassword" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-lock text-gray-400 mr-2"></i>Confirm Password
-                    </label>
-                    <div class="relative">
-                        <input 
-                            type="password" 
-                            id="repassword" 
-                            name="repassword" 
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 pr-12"
-                            placeholder="Confirm your password"
-                        >
-                        <button 
-                            type="button" 
-                            id="toggleRepassword"
-                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                        >
-                            <i class="fas fa-eye" id="eyeIcon2"></i>
-                        </button>
-                    </div>
-                    <div id="passwordMatch" class="mt-2 text-xs hidden">
-                        <div class="flex items-center text-red-500">
-                            <i class="fas fa-times mr-1"></i>
-                            <span>Passwords do not match</span>
+                    <div>
+                        <label for="repassword" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock text-gray-400 mr-2"></i>Confirm Password
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="repassword" 
+                                name="repassword" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200 pr-12"
+                                placeholder="Confirm your password"
+                            >
+                            <button 
+                                type="button" 
+                                id="toggleRepassword"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye" id="eyeIcon2"></i>
+                            </button>
+                        </div>
+                        <div id="passwordMatch" class="mt-2 text-xs hidden">
+                            <div class="flex items-center text-red-500">
+                                <i class="fas fa-times mr-1"></i>
+                                <span>Passwords do not match</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="flex items-center">
-                    <input 
-                        type="checkbox" 
-                        id="terms" 
-                        name="terms"
-                        required
-                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            name="terms"
+                            required
+                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        >
+                        <label for="terms" class="ml-2 text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> 
+                            and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        id="submitBtn"
+                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                    <label for="terms" class="ml-2 text-sm text-gray-600">
-                        I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> 
-                        and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
-                    </label>
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                            Sign in here
+                        </a>
+                    </p>
                 </div>
-
-                <button 
-                    type="submit" 
-                    id="submitBtn"
-                    class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <i class="fas fa-user-plus mr-2"></i>
-                    Create Account
-                </button>
-            </form>
-
-            <div class="mt-6 text-center">
-                <p class="text-gray-600">
-                    Already have an account? 
-                    <a href="/login/" class="text-indigo-600 hover:text-indigo-800 font-semibold">
-                        Sign in here
-                    </a>
-                </p>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <div class="text-center mt-8 text-sm text-gray-500">
-            <p>&copy; 2025 AI Blog Generator. All rights reserved.</p>
+            <!-- Footer -->
+            <div class="text-center mt-8 text-sm text-gray-500">
+                <p>&copy; 2025 AI Blog Generator. All rights reserved.</p>
+            </div>
         </div>
     </div>
 
@@ -199,6 +203,8 @@
                 this.lengthCheck = document.getElementById('lengthCheck');
                 this.passwordMatch = document.getElementById('passwordMatch');
                 this.submitBtn = document.getElementById('submitBtn');
+                this.messageContainer = document.getElementById('messageContainer');
+                this.messageText = document.getElementById('messageText');
             }
 
             bindEvents() {
@@ -220,9 +226,9 @@
                     this.validatePasswordMatch();
                 });
 
-                // Form submission
+                // Form submission validation (client-side)
                 this.form.addEventListener('submit', (e) => {
-                    this.handleSubmit(e);
+                    this.handleClientSideValidation(e);
                 });
             }
 
@@ -272,45 +278,78 @@
                 }
             }
 
-            handleSubmit(e) {
+            handleClientSideValidation(e) {
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
                 const password = this.passwordField.value;
                 const repassword = this.repasswordField.value;
-                
-                if (password !== repassword) {
+                const termsAccepted = document.getElementById('terms').checked;
+
+                // Clear any previous client-side messages
+                this.messageContainer.classList.add('hidden');
+
+                // Validate username
+                if (username.length < 3) {
                     e.preventDefault();
-                    this.showError('Passwords do not match');
+                    this.showError('Username must be at least 3 characters long');
                     return;
                 }
 
+                // Validate email
+                if (!email || !this.isValidEmail(email)) {
+                    e.preventDefault();
+                    this.showError('Please enter a valid email address');
+                    return;
+                }
+
+                // Validate password
                 if (password.length < 6) {
                     e.preventDefault();
                     this.showError('Password must be at least 6 characters long');
                     return;
                 }
 
+                // Validate password match
+                if (password !== repassword) {
+                    e.preventDefault();
+                    this.showError('Passwords do not match');
+                    return;
+                }
+
+                // Validate terms acceptance
+                if (!termsAccepted) {
+                    e.preventDefault();
+                    this.showError('Please accept the Terms of Service and Privacy Policy');
+                    return;
+                }
+
                 // Show loading state
                 this.submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating Account...';
                 this.submitBtn.disabled = true;
+
+                // Allow form to submit to Django backend
+                // The form will now proceed to the server
+            }
+
+            isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
             }
 
             showError(message) {
-                // Create or update error message
-                let errorDiv = document.querySelector('.error-message');
-                if (!errorDiv) {
-                    errorDiv = document.createElement('div');
-                    errorDiv.className = 'error-message mb-4 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700';
-                    this.form.insertBefore(errorDiv, this.form.firstChild);
-                }
-                
-                errorDiv.innerHTML = `
+                this.messageContainer.className = 'mb-4 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700';
+                this.messageContainer.innerHTML = `
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-triangle mr-2"></i>
-                        ${message}
+                        <span>${message}</span>
                     </div>
                 `;
-
-                // Scroll to error
-                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                this.messageContainer.classList.remove('hidden');
+                this.messageContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset submit button
+                this.submitBtn.innerHTML = '<i class="fas fa-user-plus mr-2"></i>Create Account';
+                this.submitBtn.disabled = false;
             }
         }
 
@@ -319,40 +358,5 @@
             new SignupForm();
         });
     </script>
-</body>
-</html>t-5 text-2xl">SignUp</h1>
-    <div id="box" class="border border-gray-600 rounded p-4 mt-10 shadow-lg mx-20 transform transition-transform duration-500 hover:scale-110 ">
-        <form class="text-center">
-            
-            <div class="text-center">
-            <label class=" text-center font-medium">Userame: </label>
-            <br>
-            <input class="text-center border border-gray-600 rounded shadow-lg" type="text" name="username" placeholder=" username">
-            </div>
-            <div class="text-center mt-3">
-                <label class="text-center font-medium">Email:</label>
-                <br>
-                <input class="text-center border border-gray-600 rounded shadow-lg" name="Email"placeholder="Email">
-                
-            </div>
-           
-            <div class="text-center mt-3">
-                <label class="text-center font-medium">Password: </label>
-                <br>
-                <input class="text-center border border-gray-600 rounded shadow-lg" type="password" name="password"placeholder="password">
-                
-            </div>
-
-        
-            <div class="text-center">
-                <button id="loginbutton" class="bg-blue-600 rounded text-white px-4 py-2 hover:bg-blue-400 mx-auto mt-5   ">SignUP</button>
-            </div>
-        </form>
-                 
-            
-        
-    </div>
-</div>
-    
 </body>
 </html>
